@@ -3,12 +3,13 @@ import { useNodesState, useEdgesState, addEdge, Node } from 'reactflow';
 import { useStore } from '../store/useStore';
 import ConfigForm from './ConfigForm'; // Import the ConfigForm component
 
+export let prompt = ''; // Declare and export prompt globally
+
+
 export function useFlowNodes() {
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
   const addNode = useStore((state) => state.addNode);
-  let sourceNode = null; // Declare globally
-  let targetNode = null; // Declare globally
 
   const [selectedNode, setSelectedNode] = useState(null);
   const [nodeConfig, setNodeConfig] = useState({});
@@ -27,12 +28,17 @@ export function useFlowNodes() {
       setEdges((eds) => {
         const newEdges = addEdge(params, eds);
 
-         sourceNode = nodes.find((node) => node.id === params.source);
-         targetNode = nodes.find((node) => node.id === params.target);
+        const sourceNode = nodes.find((node) => node.id === params.source);
+        const targetNode = nodes.find((node) => node.id === params.target);
 
         if (sourceNode && targetNode) {
           const prompt = generateCustomPrompt(sourceNode, targetNode);
           alert(prompt);
+        }
+
+        if (sourceNode && targetNode) {
+          prompt = generateCustomPrompt(sourceNode, targetNode); // Update the global prompt variable
+          console.log('Updated Prompt:', prompt); // Debugging output
         }
 
         return newEdges;
@@ -108,5 +114,6 @@ export function useFlowNodes() {
     updateNodeConfig,
     isConfigModalOpen,
     closeConfigModal, // Expose close function for modal
+    prompt,
   };
 }

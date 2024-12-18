@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { GoogleGenerativeAI } from '@google/generative-ai'; // Import for Gemini API
 import { useFlowNodes } from '../hooks/useFlowNodes';
+import { prompt } from '../hooks/useFlowNodes'; // Import the global prompt
+
 
 
 const CodePanel: React.FC = () => {
-  const [prompt, setPrompt] = useState('');
+  const [prompt2, setPrompt] = useState('');
   const [terraformCode, setTerraformCode] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -16,10 +18,11 @@ const CodePanel: React.FC = () => {
     try {
       // Initialize GoogleGenerativeAI client with your API key
       const genAI = new GoogleGenerativeAI(apiKey);
+      console.log('Prompt from FlowNodes:', prompt); // Access the updated prompt
 
       const model = genAI.getGenerativeModel({ model: 'gemini-pro' });
 
-      const promptText = `Write Terraform code to ${prompt}`; // Construct the prompt
+      const promptText = `Write Terraform code to ${prompt2}`; // Construct the prompt
 
       const result = await model.generateContent(promptText);
 
@@ -50,7 +53,7 @@ const CodePanel: React.FC = () => {
       </div>
 
       <textarea
-        value={prompt}
+        value={prompt2}
         onChange={(e) => setPrompt(e.target.value)}
         placeholder="Enter your resource requirements..."
         rows={4}
