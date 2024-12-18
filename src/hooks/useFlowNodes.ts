@@ -7,6 +7,8 @@ export function useFlowNodes() {
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
   const addNode = useStore((state) => state.addNode);
+  let sourceNode = null; // Declare globally
+  let targetNode = null; // Declare globally
 
   const [selectedNode, setSelectedNode] = useState(null);
   const [nodeConfig, setNodeConfig] = useState({});
@@ -25,8 +27,8 @@ export function useFlowNodes() {
       setEdges((eds) => {
         const newEdges = addEdge(params, eds);
 
-        const sourceNode = nodes.find((node) => node.id === params.source);
-        const targetNode = nodes.find((node) => node.id === params.target);
+         sourceNode = nodes.find((node) => node.id === params.source);
+         targetNode = nodes.find((node) => node.id === params.target);
 
         if (sourceNode && targetNode) {
           const prompt = generateCustomPrompt(sourceNode, targetNode);

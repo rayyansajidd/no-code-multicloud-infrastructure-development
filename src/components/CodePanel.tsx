@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { GoogleGenerativeAI } from '@google/generative-ai'; // Import for Gemini API
+import { useFlowNodes } from '../hooks/useFlowNodes';
+
 
 const CodePanel: React.FC = () => {
   const [prompt, setPrompt] = useState('');
