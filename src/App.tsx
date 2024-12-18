@@ -6,6 +6,7 @@ import CodePanel from './components/CodePanel';
 import ResizeHandle from './components/ResizeHandle';
 import { cloudServices } from './constants/cloudServices';
 import openapikey from './hooks/openapikey'; // Import your API component
+import OpenAIComponent from './hooks/openapikey'; // Import your API component
 
 
 function App() {
@@ -39,7 +40,6 @@ function App() {
 export default App;
 
 // import React from 'react';
-// import OpenAIComponent from './hooks/openapikey'; // Import your API component
 
 // function App() {
 //   return (
@@ -50,7 +50,7 @@ export default App;
 
 //       {/* Render only the OpenAIComponent for testing */}
 //       <div className="mt-8 w-3/4">
-//         <OpenAIComponent />
+//         <CodePanel />
 //       </div>
 //     </div>
 //   );
